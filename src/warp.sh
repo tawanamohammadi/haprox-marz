@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source src/common.sh
+source "$BASE_DIR/src/common.sh"
 
 WGCF_VERSION="2.2.22"
 TMPDIR=$(mktemp -d -t marz-warp-XXXXXXXX)
@@ -52,9 +52,15 @@ install_warp_logic() {
     local wgcf_tmp="${TMPDIR}/wgcf"
     
     if command -v curl &>/dev/null; then
-        curl -fsSL "$wgcf_url" -o "$wgcf_tmp"
+        if ! curl -fsSL "$wgcf_url" -o "$wgcf_tmp"; then
+             log_error "Failed to download wgcf. Check internet connection."
+             exit 1
+        fi
     else
-        wget -qO "$wgcf_tmp" "$wgcf_url"
+        if ! wget -qO "$wgcf_tmp" "$wgcf_url"; then
+             log_error "Failed to download wgcf. Check internet connection."
+             exit 1
+        fi
     fi
     
     chmod +x "$wgcf_tmp"
@@ -66,15 +72,25 @@ install_warp_logic() {
     mkdir -p /opt/warp-config
     cd /opt/warp-config || exit 1
     
+    # Register account (ignore error if already registered)
     wgcf register --accept-tos >/dev/null 2>&1 || true
-    wgcf generate
+    
+    if ! wgcf generate; then
+        log_error "Failed to generate wgcf profile. 429 Too Many Requests? Try again later."
+        exit 1
+    fi
 
     # Apply Warp+
     if [[ "$USE_WARP_PLUS" == "y" || "$USE_WARP_PLUS" == "Y" ]]; then
         log_info "Applying Warp+ license..."
-        sed -i "s/^license_key.*/license_key = \"$WARP_PLUS_KEY\"/" wgcf-account.toml
-        wgcf update
-        wgcf generate
+        if [[ -f wgcf-account.toml ]]; then
+            sed -i "s/^license_key.*/license_key = \"$WARP_PLUS_KEY\"/" wgcf-account.toml
+            if ! wgcf update; then
+                 log_warn "Failed to update Warp+ license. Continuing with free account..."
+            else
+                 wgcf generate
+            fi
+        fi
     fi
 
     chmod 600 wgcf-profile.conf
@@ -139,6 +155,48 @@ EOF
 EOF
     fi
     log_info "Routing rules saved to /root/warp_routing_rule.json"
+
+    mkdir -p /opt/marzban-warp
+    cat > /opt/marzban-warp/marzban_snippets.json <<-EOF
+{
+  "outbounds": [
+    $(cat /root/warp_xray_outbound.json)
+  ],
+  "routing": {
+    "rules": [
+      $(cat /root/warp_routing_rule.json)
+    ]
+  }
+}
+EOF
+    cat > /opt/marzban-warp/POST_INSTALL.txt <<-EOF
+Marzban Integration Guide
+
+1) Open Marzban Panel → Core Settings
+2) Add "warp" outbound from: /root/warp_xray_outbound.json
+3) Add routing rule from: /root/warp_routing_rule.json
+4) Save and restart core
+
+Optional: Combined JSON snippet at /opt/marzban-warp/marzban_snippets.json
+EOF
+
+    echo
+    echo -e "${GREEN}Next steps:${NC}"
+    echo "- Open Marzban Core Settings and paste the generated outbound and routing rule"
+    echo "- Combined snippet: /opt/marzban-warp/marzban_snippets.json"
+    echo "- Detailed guide: /opt/marzban-warp/POST_INSTALL.txt"
+
+    read -p "Auto attempt to integrate into a local config file path? (y/n): " AUTO_INTEGRATE
+    if [[ "$AUTO_INTEGRATE" == "y" || "$AUTO_INTEGRATE" == "Y" ]]; then
+        read -p "Enter Marzban core config path (e.g., /etc/marzban/core.json): " MARZBAN_CONFIG_PATH
+        if [[ -n "$MARZBAN_CONFIG_PATH" && -f "$MARZBAN_CONFIG_PATH" ]]; then
+            cp /opt/marzban-warp/marzban_snippets.json /opt/marzban-warp/marzban_snippets.backup.json || true
+            echo "Backup of snippet saved at /opt/marzban-warp/marzban_snippets.backup.json"
+            echo "Please manually merge outbounds and routing into $MARZBAN_CONFIG_PATH to avoid breaking existing config."
+        else
+            echo "Config path not found. Skipping auto integration."
+        fi
+    fi
 
     print_line
     echo -e "${GREEN}✅ Warp setup completed!${NC}"
