@@ -1,86 +1,90 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HAProxy & Marzban Automation Suite</title>
-<meta name="description" content="Install HAProxy SNI TLS router and Cloudflare Warp for Marzban. Simple, bilingual docs and responsive UI.">
-<meta name="keywords" content="HAProxy SNI, Marzban Warp, Cloudflare Warp WireGuard, VLESS VMess Trojan Hysteria Reality, TLS 443, Ubuntu Debian">
-<link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/en/">
-<link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/fa/" hreflang="fa">
-<link rel="stylesheet" href="../assets/styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HAProxy & Marzban Automation Suite</title>
+  <meta name="description" content="Install HAProxy SNI TLS router and Cloudflare Warp for Marzban. Simple, bilingual docs and responsive UI.">
+  <meta name="keywords" content="HAProxy SNI, Marzban Warp, Cloudflare Warp WireGuard, VLESS VMess Trojan Hysteria Reality, TLS 443, Ubuntu Debian">
+  <link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/en/">
+  <link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/fa/" hreflang="fa">
+  <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body>
-<div class="container">
-  <div class="nav">
-    <div class="brand">HAProxy & Marzban</div>
-    <div class="actions">
-      <button class="btn" onclick="setLang('fa')">فارسی</button>
-      <a class="btn secondary" href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a>
-      <a class="btn accent" href="#install">Install</a>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">HAProxy & Marzban Suite</div>
+      <div class="actions">
+        <button class="btn secondary" onclick="setLang('fa')">فارسی</button>
+        <a class="btn secondary" href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a>
+        <a class="btn" href="#install">Get Started</a>
+      </div>
     </div>
-  </div>
-  <div class="hero">
-    <div class="card">
-      <div class="title">Unified Installer for HAProxy & Warp</div>
-      <div class="subtitle">SNI-based TLS routing on 443 and Cloudflare Warp integration for Marzban</div>
+
+    <div class="hero">
+      <div>
+        <h1 class="title">Professional HAProxy & Warp Installer</h1>
+        <p class="subtitle">Advanced SNI routing on port 443 and secure Cloudflare Warp integration for Marzban panel. Simple, fast, and secure.</p>
+        <a class="btn" href="#install">Install Now</a>
+      </div>
+      <div class="card">
+        <!-- Add an image or SVG here -->
+        <img src="../assets/hero.svg" alt="HAProxy Warp" style="width:100%; border-radius:16px;">
+      </div>
+    </div>
+
+    <div class="section" id="features">
+      <h2>Key Features</h2>
       <div class="grid">
-        <div class="card">
-          <div class="badge">HAProxy SNI</div>
-          <div>Route Panel, VLESS WS, VMess TCP, Trojan, Hysteria2, Reality via SNI</div>
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>SNI Routing</h3>
+          <p>Support for VLESS, VMess, Trojan, Hysteria2, Reality on single port.</p>
         </div>
-        <div class="card">
-          <div class="badge">Cloudflare Warp</div>
-          <div>Generate Marzban outbounds with Xray or Kernel method</div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure Warp</h3>
+          <p>WireGuard integration with Marzban, Xray or Kernel mode.</p>
         </div>
-        <div class="card">
-          <div class="badge">Responsive Docs</div>
-          <div>Bilingual, mobile-friendly, SEO-optimized guides</div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Responsive Docs</h3>
+          <p>Bilingual, mobile-friendly, SEO-optimized guides.</p>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="section" id="install">
-        <h2>Quick Install</h2>
-        <div class="code"><button class="btn copy" onclick="copyCode(this)">Copy</button><pre><code>git clone https://github.com/tawanamohammadi/haprox-marz.git
+
+    <div class="section" id="install">
+      <h2>Quick Install</h2>
+      <div class="code">
+        <button class="btn copy" onclick="copyCode(this)">Copy</button>
+        <pre><code>git clone https://github.com/tawanamohammadi/haprox-marz.git
 cd haprox-marz
 chmod +x install.sh
-sudo ./install.sh</code></pre></div>
-        <div class="list">
-          <div class="item"><span class="badge">1</span><span>Install HAProxy SNI router</span></div>
-          <div class="item"><span class="badge">2</span><span>Install Cloudflare Warp for Marzban</span></div>
-          <div class="item"><span class="badge">3</span><span>Full setup (both)</span></div>
-        </div>
+sudo ./install.sh</code></pre>
       </div>
-      <div class="section">
-        <h2>Prerequisites</h2>
-        <div class="list">
-          <div class="item"><span class="badge">OS</span><span>Ubuntu 20.04+ or Debian 11/12</span></div>
-          <div class="item"><span class="badge">Port</span><span>Ensure port 443 is free</span></div>
-          <div class="item"><span class="badge">DNS</span><span>Configure SNI subdomains</span></div>
-        </div>
-      </div>
-      <div class="section">
-        <h2>Docs</h2>
-        <div class="list">
-          <div class="item"><span class="badge">Guide</span><a href="../haproxy.md">HAProxy</a></div>
-          <div class="item"><span class="badge">Guide</span><a href="../warp.md">Warp</a></div>
-          <div class="item"><span class="badge">Repo</span><a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a></div>
-        </div>
-      </div>
-      <div class="section">
-        <h2>Post-Install (Warp)</h2>
-        <div class="list">
-          <div class="item"><span class="badge">1</span><span>Open Marzban → Core Settings</span></div>
-          <div class="item"><span class="badge">2</span><span>Add outbound from <code>/root/warp_xray_outbound.json</code></span></div>
-          <div class="item"><span class="badge">3</span><span>Add routing rule from <code>/root/warp_routing_rule.json</code></span></div>
-          <div class="item"><span class="badge">4</span><span>Save and restart core</span></div>
-          <div class="item"><span class="badge">All-in-one</span><span>See combined snippet: <code>/opt/marzban-warp/marzban_snippets.json</code></span></div>
-        </div>
+      <div class="list">
+        <div class="item"><span class="badge">1</span>Install HAProxy SNI</div>
+        <div class="item"><span class="badge">2</span>Install Warp for Marzban</div>
+        <div class="item"><span class="badge">3</span>Full Setup</div>
       </div>
     </div>
+
+    <div class="section">
+      <h2>Post-Install (Warp)</h2>
+      <div class="list">
+        <div class="item"><span class="badge">1</span>Open Marzban → Core Settings</div>
+        <div class="item"><span class="badge">2</span>Add outbound from /root/warp_xray_outbound.json</div>
+        <div class="item"><span class="badge">3</span>Add rule from /root/warp_routing_rule.json</div>
+        <div class="item"><span class="badge">4</span>Save and restart</div>
+        <div class="item"><span class="badge">Snippet</span>/opt/marzban-warp/marzban_snippets.json</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2025 haprox-marz · MIT License · Developed with ❤️ by Tawana
+    </div>
   </div>
-  <div class="footer">© 2025 haprox-marz · MIT License</div>
-</div>
-<script src="../assets/script.js"></script>
+  <script src="../assets/script.js"></script>
 </body>
 </html>
