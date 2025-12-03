@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نصب‌کننده یکپارچه HAProxy و Warp برای مرزبان</title>
+<meta name="description" content="نصب و راه‌اندازی HAProxy مبتنی بر SNI روی پورت ۴۴۳ و یکپارچه‌سازی Cloudflare Warp برای پنل مرزبان. راهنمای دوزبانه و رسپانسیو.">
+<meta name="keywords" content="هاپروکسی SNI، مرزبان Warp، کلادفلر Warp وایرگارد، VLESS VMess Trojan Hysteria Reality، TLS 443، اوبونتو دبیان">
+<link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/fa/">
+<link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/en/" hreflang="en">
+<link rel="stylesheet" href="../assets/styles.css">
+<style>body{direction:rtl} .actions{flex-direction:row-reverse} .item{flex-direction:row-reverse}</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav">
+    <div class="brand">HAProxy & Marzban</div>
+    <div class="actions">
+      <button class="btn" onclick="setLang('en')">English</button>
+      <a class="btn secondary" href="https://github.com/tawanamohammadi/haprox-marz">گیت‌هاب</a>
+      <a class="btn accent" href="#install">نصب سریع</a>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="card">
+      <div class="title">نصب‌کننده یکپارچه HAProxy و Warp</div>
+      <div class="subtitle">مسیر‌دهی TLS مبتنی بر SNI روی ۴۴۳ و یکپارچه‌سازی Warp برای مرزبان</div>
+      <div class="grid">
+        <div class="card">
+          <div class="badge">HAProxy SNI</div>
+          <div>مسیر‌دهی پنل، VLESS WS، VMess TCP، Trojan، Hysteria2، Reality بر اساس دامنه</div>
+        </div>
+        <div class="card">
+          <div class="badge">Cloudflare Warp</div>
+          <div>تولید خروجی‌های مرزبان با روش Xray یا Kernel</div>
+        </div>
+        <div class="card">
+          <div class="badge">مستندات رسپانسیو</div>
+          <div>دوزبانه، مناسب موبایل، بهینه برای سئو</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section" id="install">
+        <h2>نصب سریع</h2>
+        <div class="code"><button class="btn copy" onclick="copyCode(this)">کپی</button><pre><code>git clone https://github.com/tawanamohammadi/haprox-marz.git
+cd haprox-marz
+chmod +x install.sh
+sudo ./install.sh</code></pre></div>
+        <div class="list">
+          <div class="item"><span class="badge">۱</span><span>نصب مسیر‌دهی SNI با HAProxy</span></div>
+          <div class="item"><span class="badge">۲</span><span>نصب Warp و ساخت خروجی‌های مرزبان</span></div>
+          <div class="item"><span class="badge">۳</span><span>نصب کامل (هر دو)</span></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>پیش‌نیازها</h2>
+        <div class="list">
+          <div class="item"><span class="badge">سیستم‌عامل</span><span>Ubuntu 20.04+ یا Debian 11/12</span></div>
+          <div class="item"><span class="badge">پورت</span><span>آزاد بودن پورت ۴۴۳</span></div>
+          <div class="item"><span class="badge">DNS</span><span>تنظیم رکوردهای دامنه برای SNI</span></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>مستندات</h2>
+        <div class="list">
+          <div class="item"><span class="badge">راهنما</span><a href="../haproxy.md">HAProxy</a></div>
+          <div class="item"><span class="badge">راهنما</span><a href="../warp.md">Warp</a></div>
+          <div class="item"><span class="badge">ریپو</span><a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">© 2025 haprox-marz · مجوز MIT</div>
+</div>
+<script src="../assets/script.js"></script>
+</body>
+</html>
+

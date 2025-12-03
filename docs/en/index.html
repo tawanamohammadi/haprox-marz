@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HAProxy & Marzban Automation Suite</title>
+<meta name="description" content="Install HAProxy SNI TLS router and Cloudflare Warp for Marzban. Simple, bilingual docs and responsive UI.">
+<meta name="keywords" content="HAProxy SNI, Marzban Warp, Cloudflare Warp WireGuard, VLESS VMess Trojan Hysteria Reality, TLS 443, Ubuntu Debian">
+<link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/en/">
+<link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/fa/" hreflang="fa">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="nav">
+    <div class="brand">HAProxy & Marzban</div>
+    <div class="actions">
+      <button class="btn" onclick="setLang('fa')">فارسی</button>
+      <a class="btn secondary" href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a>
+      <a class="btn accent" href="#install">Install</a>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="card">
+      <div class="title">Unified Installer for HAProxy & Warp</div>
+      <div class="subtitle">SNI-based TLS routing on 443 and Cloudflare Warp integration for Marzban</div>
+      <div class="grid">
+        <div class="card">
+          <div class="badge">HAProxy SNI</div>
+          <div>Route Panel, VLESS WS, VMess TCP, Trojan, Hysteria2, Reality via SNI</div>
+        </div>
+        <div class="card">
+          <div class="badge">Cloudflare Warp</div>
+          <div>Generate Marzban outbounds with Xray or Kernel method</div>
+        </div>
+        <div class="card">
+          <div class="badge">Responsive Docs</div>
+          <div>Bilingual, mobile-friendly, SEO-optimized guides</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section" id="install">
+        <h2>Quick Install</h2>
+        <div class="code"><button class="btn copy" onclick="copyCode(this)">Copy</button><pre><code>git clone https://github.com/tawanamohammadi/haprox-marz.git
+cd haprox-marz
+chmod +x install.sh
+sudo ./install.sh</code></pre></div>
+        <div class="list">
+          <div class="item"><span class="badge">1</span><span>Install HAProxy SNI router</span></div>
+          <div class="item"><span class="badge">2</span><span>Install Cloudflare Warp for Marzban</span></div>
+          <div class="item"><span class="badge">3</span><span>Full setup (both)</span></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Prerequisites</h2>
+        <div class="list">
+          <div class="item"><span class="badge">OS</span><span>Ubuntu 20.04+ or Debian 11/12</span></div>
+          <div class="item"><span class="badge">Port</span><span>Ensure port 443 is free</span></div>
+          <div class="item"><span class="badge">DNS</span><span>Configure SNI subdomains</span></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Docs</h2>
+        <div class="list">
+          <div class="item"><span class="badge">Guide</span><a href="../haproxy.md">HAProxy</a></div>
+          <div class="item"><span class="badge">Guide</span><a href="../warp.md">Warp</a></div>
+          <div class="item"><span class="badge">Repo</span><a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">© 2025 haprox-marz · MIT License</div>
+</div>
+<script src="../assets/script.js"></script>
+</body>
+</html>
+

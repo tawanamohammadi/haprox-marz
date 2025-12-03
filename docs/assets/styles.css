@@ -1,0 +1,28 @@
+:root{--bg:#0b0f14;--card:#121820;--accent:#2dd4bf;--text:#e6edf3;--muted:#9aa4b2;--danger:#ef4444;--ok:#22c55e}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:1080px;margin:0 auto;padding:24px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+.brand{font-weight:700;letter-spacing:.3px}
+.actions{display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #22303c;background:linear-gradient(180deg,#1a222c,#121820);color:var(--text);cursor:pointer}
+.btn.accent{border-color:transparent;background:linear-gradient(180deg,#2de2cf,#2dd4bf);color:#0b0f14;font-weight:700}
+.btn.secondary{background:#0b0f14;border-color:#243341}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:32px 0}
+.card{background:var(--card);border:1px solid #243341;border-radius:16px;padding:20px}
+.title{font-size:28px;font-weight:800;margin:0 0 8px}
+.subtitle{color:var(--muted);margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.section{margin:28px 0}
+.section h2{font-size:20px;margin:0 0 10px}
+.list{display:grid;gap:10px}
+.item{display:flex;gap:10px}
+.badge{padding:4px 8px;border-radius:999px;background:#0f172a;border:1px solid #243341;color:var(--muted);font-size:12px}
+.code{position:relative}
+pre{margin:0;background:#0a1218;border:1px solid #22303c;border-radius:12px;padding:14px;overflow:auto}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:#bfe3ff}
+.copy{position:absolute;top:8px;right:8px}
+.footer{padding:24px 0;color:var(--muted);font-size:14px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:600px){.actions{flex-wrap:wrap}.btn{width:100%;justify-content:center}}
+
