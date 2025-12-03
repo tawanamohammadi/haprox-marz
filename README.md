@@ -7,8 +7,9 @@
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%2B-orange?style=flat-square&logo=ubuntu)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
----
+## 📜 License
 
+Released under the MIT License. See the [LICENSE](LICENSE) file for details.
 ## 🚀 What is this?
 
 **`tawanaHAproxy.sh`** is an interactive Bash script that installs and configures **HAProxy** to handle multiple secure VPN protocols over **a single port (443)** using **SNI-based TCP routing**.
@@ -48,6 +49,14 @@ Designed for modern VPN gateways running:
 > 🧠 You can customize each backend port/domain during script execution.
 
 ---
+
+## 📋 Prerequisites
+
+- سرور لینوکسی با Ubuntu 20.04+ یا Debian 11/12 و دسترسی sudo/root
+- آزاد بودن پورت 443 و عدم استفاده همزمان توسط سرویس دیگر
+- تنظیم رکوردهای DNS برای دامنه‌های SNI (panel/ws/tcp/xhttp/dl/notify)
+- داشتن گواهی‌های معتبر روی سرویس‌های بک‌اند (Xray، Hysteria2، Trojan، Reality)
+- در ویندوز، اجرای اسکریپت‌ها از طریق WSL یا روی یک سرور لینوکسی ریموت
 
 ## 📦 Installation & Usage
 
@@ -112,6 +121,34 @@ Made with ❤️ by the TAWANA Network
 
 ---
 
-## 📜 License
+---
 
-This project is licensed under the [MIT License](LICENSE)
+## 🧪 Quick Start
+
+```bash
+chmod +x tawanaHAproxy.sh
+sudo ./tawanaHAproxy.sh
+```
+
+ورودی‌های موردنیاز:
+- دامنه‌های SNI برای هر سرویس
+- پورت داخلی هر سرویس (در صورت عدم تغییر از مقادیر پیش‌فرض استفاده می‌شود)
+
+پس از اجرا:
+- فایل کانفیگ در مسیر `/etc/haproxy/haproxy.cfg` ایجاد می‌شود
+- سرویس HAProxy فعال و راه‌اندازی می‌شود
+
+## 🧰 Troubleshooting
+- اگر پورت 443 اشغال است، سرویس‌های متداخل را متوقف کنید
+- اطمینان از Resolve شدن دامنه‌ها به IP درست و فعال بودن SNI در کلادفلر (Orange Cloud)
+- لاگ‌ها را بررسی کنید:
+```bash
+sudo journalctl -u haproxy -f
+```
+
+## 🧱 Security Notes
+- کلیدها و گواهی‌ها را روی بک‌اندها امن نگه‌دارید و در لاگ‌ها چاپ نکنید
+- تنها دامنه‌های قابل اعتماد را در SNI تنظیم کنید
+- دسترسی ssh و sudo را محدود کنید
+
+---
