@@ -23,11 +23,18 @@ Hardened script to install and configure Cloudflare Warp (WireGuard) for Marzban
 Clone the repository and run the installer:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/haprox-marz.git
+git clone https://github.com/tawanamohammadi/haprox-marz.git
 cd haprox-marz
 chmod +x install.sh
 sudo ./install.sh
 ```
+
+## 🔍 SEO Keywords
+- HAProxy SNI Router
+- Marzban Warp Installer
+- Cloudflare Warp WireGuard for Xray
+- VLESS VMess Trojan Hysteria Reality over 443
+- Ubuntu Debian TLS routing
 
 ## 🛠 Support
 
