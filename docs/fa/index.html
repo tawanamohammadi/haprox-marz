@@ -10,209 +10,23 @@
   <link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/en/" hreflang="en">
   <link rel="stylesheet" href="../assets/styles.css">
 
-  <!-- استایل‌های تکمیلی (ایمن) -->
-  <style>
-    body {
-      direction: rtl;
-      font-family: 'Vazirmatn', sans-serif;
-      background:
-        radial-gradient(900px circle at 10% -10%, rgba(106,166,255,.10), transparent 50%),
-        radial-gradient(800px circle at 110% -20%, rgba(139,92,246,.10), transparent 55%),
-        #0b0d12;
-      color: #e6e9ef;
-    }
-
-    /* حفظ رفتار RTL در اکشن‌ها و آیتم‌ها */
-    .actions { flex-direction: row-reverse; }
-    .item { flex-direction: row-reverse; }
-
-    /* کانتینر خواناتر */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    /* هدر حرفه‌ای و چسبان */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(8px) saturate(140%);
-      background: linear-gradient(to bottom, rgba(11,13,18,.9), rgba(11,13,18,.6));
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 16px;
-      padding: 10px 12px;
-      margin-top: 8px;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: .2px;
-      font-size: 18px;
-    }
-
-    /* دکمه‌ها کمی مدرن‌تر ولی بدون حذف کلاس‌های قدیمی */
-    .btn {
-      border-radius: 12px !important;
-      transition: .18s ease;
-      font-weight: 700;
-    }
-    .btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-    }
-
-    /* هیرو رسپانسیوتر */
-    .hero {
-      margin-top: 18px;
-      gap: 16px;
-      align-items: center;
-    }
-    .title {
-      font-size: clamp(24px, 3.2vw, 38px);
-      margin-bottom: 8px;
-      line-height: 1.35;
-    }
-    .subtitle {
-      font-size: clamp(14px, 1.9vw, 17px);
-      opacity: .85;
-      margin-bottom: 12px;
-    }
-    .card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 18px;
-      padding: 10px;
-      box-shadow: 0 10px 35px rgba(0,0,0,.35);
-    }
-
-    /* بخش‌ها یکدست‌تر */
-    .section {
-      margin-top: 28px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 18px;
-      padding: 16px;
-    }
-    .section h2 {
-      font-size: 20px;
-      margin: 0 0 12px;
-    }
-
-    /* کارت‌های ویژگی */
-    .grid {
-      gap: 12px;
-    }
-    .feature-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 16px;
-      padding: 14px;
-      transition: .18s ease;
-      min-height: 150px;
-    }
-    .feature-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.14);
-    }
-    .feature-icon {
-      font-size: 22px;
-      margin-bottom: 6px;
-    }
-    .feature-card h3 {
-      margin: 0 0 6px;
-      font-size: 17px;
-    }
-    .feature-card p {
-      margin: 0;
-      opacity: .85;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    /* کد نصب با UX بهتر */
-    .code {
-      position: relative;
-      background: #0a0c10;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px;
-      padding: 12px;
-      overflow: hidden;
-    }
-    .code pre {
-      margin: 0;
-      overflow: auto;
-      padding-top: 30px;
-      font-size: 13px;
-      line-height: 1.8;
-      direction: ltr;
-      text-align: left;
-    }
-    .btn.copy {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 10px;
-    }
-
-    /* لیست آیتم‌ها تمیزتر */
-    .list {
-      display: grid;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .item {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 12px;
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-    }
-    .badge {
-      min-width: 28px;
-      height: 28px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      background: rgba(106,166,255,.15);
-      border: 1px solid rgba(106,166,255,.35);
-      font-weight: 800;
-      font-size: 12px;
-    }
-
-    /* فوتر */
-    .footer {
-      margin: 24px 0 6px;
-      text-align: center;
-      opacity: .7;
-      font-size: 13px;
-    }
-
-    /* ریسپانسیو */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr !important; }
-      .grid { grid-template-columns: 1fr 1fr !important; }
-    }
-    @media (max-width: 520px) {
-      .grid { grid-template-columns: 1fr !important; }
-      .actions { width: 100%; gap: 6px; }
-      .actions .btn, .actions a { width: 100%; justify-content: center; }
-      .nav { flex-direction: column; align-items: stretch; gap: 8px; }
-    }
-  </style>
+  <!-- فقط استایل‌های جدید (پایین گذاشتم) -->
+  <link rel="stylesheet" href="../assets/advanced.css">
 </head>
 
 <body>
+  <!-- لایه‌های بک‌گراند تزئینی (اختیاری و بی‌خطر) -->
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="noise"></span>
+  </div>
+
   <div class="container">
 
-    <div class="nav">
+    <!-- NAV (کلاس‌های قبلی حفظ شده) -->
+    <div class="nav glass">
       <div class="brand">HAProxy & Marzban Suite</div>
       <div class="actions">
         <button class="btn secondary" onclick="setLang('en')">English</button>
@@ -221,31 +35,49 @@
       </div>
     </div>
 
-    <div class="hero">
-      <div>
+    <!-- HERO -->
+    <div class="hero hero-pro">
+      <div class="hero-copy">
+        <div class="kicker">Automation Suite</div>
         <h1 class="title">نصب‌کننده حرفه‌ای HAProxy و Warp</h1>
-        <p class="subtitle">مسیر‌دهی پیشرفته SNI روی پورت ۴۴۳ و ادغام امن Cloudflare Warp با پنل مرزبان. ساده، سریع و امن.</p>
-        <a class="btn" href="#install">شروع کنید</a>
+        <p class="subtitle">
+          مسیر‌دهی پیشرفته SNI روی پورت ۴۴۳ و ادغام امن Cloudflare Warp با پنل مرزبان.
+          ساده، سریع و امن.
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn" href="#install">شروع کنید</a>
+          <a class="btn secondary" href="#features">ویژگی‌ها</a>
+        </div>
+
+        <!-- نوار آمار کوچک (کاملاً تزئینی) -->
+        <div class="stats">
+          <div class="stat"><span>پورت</span><b>443</b></div>
+          <div class="stat"><span>Docs</span><b>FA / EN</b></div>
+          <div class="stat"><span>License</span><b>MIT</b></div>
+        </div>
       </div>
-      <div class="card">
+
+      <div class="card hero-media tilt">
         <img src="../assets/hero.svg" alt="HAProxy Warp" style="width:100%; border-radius:16px;">
       </div>
     </div>
 
+    <!-- FEATURES -->
     <div class="section" id="features">
       <h2>ویژگی‌های کلیدی</h2>
       <div class="grid">
-        <div class="feature-card">
+        <div class="feature-card lift">
           <div class="feature-icon">🚀</div>
           <h3>مسیر‌دهی SNI</h3>
           <p>پشتیبانی از VLESS, VMess, Trojan, Hysteria2, Reality روی یک پورت.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card lift">
           <div class="feature-icon">🔒</div>
           <h3>Warp امن</h3>
           <p>ادغام WireGuard با مرزبان، با حالت Xray یا Kernel.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card lift">
           <div class="feature-icon">📱</div>
           <h3>رسپانسیو</h3>
           <p>مستندات دوزبانه و بهینه برای موبایل و سئو.</p>
@@ -253,16 +85,24 @@
       </div>
     </div>
 
+    <!-- INSTALL -->
     <div class="section" id="install">
       <h2>نصب سریع</h2>
-      <div class="code">
+
+      <div class="code code-pro">
+        <div class="code-head">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="code-title">Quick Install</span>
+        </div>
         <button class="btn copy" onclick="copyCode(this)">کپی</button>
         <pre><code>git clone https://github.com/tawanamohammadi/haprox-marz.git
 cd haprox-marz
 chmod +x install.sh
 sudo ./install.sh</code></pre>
       </div>
-      <div class="list">
+
+      <!-- Stepper پیشرفته اما class قبلی list/item حفظ شده -->
+      <div class="list stepper">
         <div class="item"><span class="badge">۱</span>نصب HAProxy SNI</div>
         <div class="item"><span class="badge">۲</span>نصب Warp برای مرزبان</div>
         <div class="item"><span class="badge">۳</span>نصب کامل</div>
@@ -280,7 +120,8 @@ sudo ./install.sh</code></pre>
       </div>
     </div>
 
-    <div class="footer">
+    <!-- Footer -->
+    <div class="footer footer-pro">
       © 2025 haprox-marz · مجوز MIT · توسعه‌یافته با ❤️ توسط توانا
     </div>
   </div>
