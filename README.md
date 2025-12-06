@@ -1,231 +1,110 @@
 # 🚀 HAProxy & Marzban Automation Suite
 
-**Enhanced Edition v2.0.0** - Professional automation tool for HAProxy SNI routing and Cloudflare Warp integration with Marzban panel.
+**نسخه پیشرفته 2.0.0** - ابزار حرفه‌ای برای مدیریت چند دامنه روی یک پورت و پیکربندی Warp برای مرزبان
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](https://github.com/tawanamohammadi/haprox-marz)
-[![Bash](https://img.shields.io/badge/bash-5.0+-orange.svg)](https://www.gnu.org/software/bash/)
 
 ---
 
-## 📖 Language / زبان
+## 📖 فهرست مطالب
 
-- [English](#english)
-- [فارسی](#فارسی)
+- [این ابزار چیست؟](#این-ابزار-چیست)
+- [چه مشکلی را حل می‌کند؟](#چه-مشکلی-را-حل-میکند)
+- [نصب سریع](#نصب-سریع)
+- [راهنمای گام‌به‌گام](#راهنمای-گامبهگام)
+- [سوالات متداول](#سوالات-متداول)
+- [رفع مشکلات](#رفع-مشکلات)
 
 ---
 
-## English
+## 🎯 این ابزار چیست؟
 
-### 🎯 What's New in v2.0.0
+این ابزار **دو مشکل اصلی** سرورهای VPN را حل می‌کند:
 
-- ✅ **Rollback System**: Automatic backups with one-command restore
-- ✅ **Safe Marzban Integration**: Surgical JSON injection without breaking configs
-- ✅ **CLI Support**: Full command-line interface for automation
-- ✅ **Diagnostics Tool**: Built-in system health checker
-- ✅ **Input Validation**: Domain and port validation before configuration
-- ✅ **Enhanced Logging**: Timestamped logs with color-coded output
-- ✅ **Uninstaller**: Clean removal with backup preservation
+### 1️⃣ مشکل: چند دامنه، یک پورت
+**قبل از استفاده:**
+- شما 6 سرویس دارید (پنل مرزبان، VLESS، VMess، Trojan، Hysteria، Reality)
+- هر کدام روی پورت جداگانه‌ای کار می‌کنند
+- باید 6 پورت مختلف را باز کنید
+- مدیریت سخت است
 
-### 📸 Preview
+**بعد از استفاده:**
+- همه سرویس‌ها روی **یک پورت (443)** کار می‌کنند
+- HAProxy بر اساس دامنه، ترافیک را هدایت می‌کند
+- فقط یک پورت باز می‌شود
+- مدیریت آسان است
 
-![Terminal Preview](C:/Users/lol/.gemini/antigravity/brain/9f792fe4-3d77-44c6-97d9-5f27799c658d/terminal_preview_1765035405871.png)
-
-### ⚡ Quick Install
-
-```bash
-git clone https://github.com/tawanamohammadi/haprox-marz.git
-cd haprox-marz
-chmod +x install.sh
-sudo ./install.sh
+**مثال:**
+```
+panel.example.com:443  → پنل مرزبان (پورت داخلی 8000)
+vless.example.com:443  → VLESS (پورت داخلی 1001)
+vmess.example.com:443  → VMess (پورت داخلی 1002)
 ```
 
-**One-liner:**
-```bash
-curl -fsSL https://raw.githubusercontent.com/tawanamohammadi/haprox-marz/main/install.sh | sudo bash
-```
+**پیش‌نمایش ترمینال:**
 
-### 🎮 Usage
+![Terminal Preview](docs/assets/images/terminal_preview.png)
 
-#### Interactive Mode
-```bash
-sudo ./install.sh
-```
 
-#### CLI Mode
+### 2️⃣ مشکل: تحریم و فیلترینگ
+**قبل از استفاده:**
+- دسترسی به سایت‌های خارجی مشکل دارد
+- برخی سرویس‌ها (ChatGPT، Netflix) کار نمی‌کنند
+- IP سرور شما بلاک می‌شود
+
+**بعد از استفاده:**
+- Cloudflare Warp را به مرزبان متصل می‌کند
+- ترافیک از طریق شبکه Cloudflare عبور می‌کند
+- دسترسی به همه سرویس‌ها بدون محدودیت
+- IP تمیز Cloudflare
+
+---
+
+## 💡 چه مشکلی را حل می‌کند؟
+
+### سناریو 1: مدیر سرور VPN
+**مشکل شما:**
+- پنل مرزبان روی پورت 8000
+- VLESS روی پورت 1001
+- VMess روی پورت 1002
+- Trojan روی پورت 1003
+- باید همه این پورت‌ها را باز کنید و مدیریت کنید
+
+**راه‌حل:**
 ```bash
-# Install HAProxy only
 sudo ./install.sh --haproxy
+```
+✅ همه سرویس‌ها روی پورت 443  
+✅ مدیریت از یک نقطه  
+✅ امنیت بیشتر  
 
-# Install Warp only
+### سناریو 2: کاربران شما به ChatGPT دسترسی ندارند
+**مشکل شما:**
+- کاربران نمی‌توانند از ChatGPT استفاده کنند
+- Netflix کار نمی‌کند
+- برخی سایت‌ها IP سرور شما را بلاک می‌کنند
+
+**راه‌حل:**
+```bash
 sudo ./install.sh --warp
-
-# Install both
-sudo ./install.sh --both
-
-# Run diagnostics
-sudo ./install.sh --diagnostics
-
-# Rollback to latest backup
-sudo ./install.sh --rollback
-
-# List available backups
-sudo ./install.sh --list-backups
-
-# Uninstall everything
-sudo ./install.sh --uninstall
-
-# Show help
-sudo ./install.sh --help
 ```
-
-### 🌟 Features
-
-#### HAProxy SNI Router
-- **TLS Passthrough**: Route multiple domains over port 443
-- **Protocol Support**: VLESS WS, VMess TCP, Trojan/XHTTP, Hysteria2, Reality, Panel
-- **Auto-Configuration**: Generate clean HAProxy configs automatically
-- **Validation**: Config validation before applying changes
-- **Port Checking**: Ensure port 443 is available before installation
-
-#### Cloudflare Warp Integration
-- **Dual Methods**: Xray core or Kernel WireGuard
-- **Warp+ Support**: Optional license key integration
-- **Safe Integration**: Automatic Marzban config injection with validation
-- **Retry Mechanism**: Robust download with automatic retries
-- **JSON Validation**: Ensure configs are valid before saving
-
-#### Backup & Rollback
-- **Automatic Backups**: All configs backed up before changes
-- **Timestamped Storage**: Easy identification of backup versions
-- **One-Command Restore**: Quick rollback to any previous state
-- **Selective Restore**: Restore specific components
-
-### 📋 Installation Flow
-
-![Installation Flow](C:/Users/lol/.gemini/antigravity/brain/9f792fe4-3d77-44c6-97d9-5f27799c658d/installation_flow_1765035468051.png)
-
-### 🔧 Prerequisites
-
-- **OS**: Ubuntu 20.04+ or Debian 11/12
-- **Access**: Root or sudo privileges
-- **Port**: 443 must be free
-- **DNS**: Records configured for SNI subdomains
-- **Dependencies**: curl, jq, wireguard-tools (auto-installed)
-
-### 📂 Repository Structure
-
-```
-.
-├── docs/               # 📚 Documentation Website
-├── src/                # 🔧 Source Code (Modular)
-│   ├── common.sh       # Shared utilities, backup, validation
-│   ├── haproxy.sh      # HAProxy installation logic
-│   ├── warp.sh         # Warp installation with Marzban integration
-│   ├── diagnostics.sh  # System health checker
-│   └── uninstall.sh    # Clean uninstaller
-├── install.sh          # 🚀 Main installer with CLI support
-├── AGENT_LOGS.md       # 🤖 AI development logs
-└── README.md           # This file
-```
-
-### 🔍 Diagnostics
-
-Check system status anytime:
-```bash
-sudo ./install.sh --diagnostics
-```
-
-The diagnostics tool checks:
-- ✅ System information
-- ✅ Port availability
-- ✅ Service status (HAProxy, Wireguard, Marzban)
-- ✅ Configuration file existence
-- ✅ Warp connectivity
-- ✅ Backup status
-- ✅ Dependencies
-
-### 🛠️ Configuration
-
-#### HAProxy
-- **Config**: `/etc/haproxy/haproxy.cfg`
-- **Service**: `systemctl status haproxy`
-- **Logs**: `journalctl -u haproxy -f`
-
-#### Warp
-- **Xray Outbound**: `/root/warp_xray_outbound.json`
-- **Routing Rule**: `/root/warp_routing_rule.json`
-- **Kernel Config**: `/etc/wireguard/warp.conf`
-- **Service**: `systemctl status wg-quick@warp`
-
-#### Backups
-- **Location**: `.backup/<timestamp>/`
-- **Latest**: `.backup/latest`
-
-### 🆘 Troubleshooting
-
-**Port 443 in use:**
-```bash
-# Check what's using the port
-sudo ss -tulnp | grep :443
-
-# Or use diagnostics
-sudo ./install.sh --diagnostics
-```
-
-**Restore from backup:**
-```bash
-# List backups
-sudo ./install.sh --list-backups
-
-# Restore latest
-sudo ./install.sh --rollback
-
-# Restore specific backup
-sudo ./install.sh --rollback 20250106_120000
-```
-
-**Warp not working:**
-```bash
-# Run diagnostics
-sudo ./install.sh --diagnostics
-
-# Check Marzban logs
-docker logs marzban -f
-```
-
-### 📜 License
-
-Released under the [MIT License](LICENSE).
-
-### 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-### 📚 Documentation
-
-Full documentation is available at: [https://tawanamohammadi.github.io/haprox-marz](https://tawanamohammadi.github.io/haprox-marz)
+✅ اتصال به شبکه Cloudflare  
+✅ دسترسی به همه سرویس‌ها  
+✅ IP تمیز و قابل اعتماد  
 
 ---
 
-## فارسی
+## ⚡ نصب سریع
 
-### 🎯 ویژگی‌های جدید نسخه 2.0.0
+### پیش‌نیازها
+قبل از شروع، مطمئن شوید:
+- ✅ سرور Ubuntu 20.04+ یا Debian 11/12 دارید
+- ✅ دسترسی root یا sudo دارید
+- ✅ پورت 443 آزاد است (برای HAProxy)
+- ✅ دامنه‌های خود را به IP سرور متصل کرده‌اید
 
-- ✅ **سیستم بازگردانی**: پشتیبان‌گیری خودکار با بازگردانی تک‌دستوری
-- ✅ **ادغام ایمن مرزبان**: تزریق دقیق JSON بدون خراب کردن تنظیمات
-- ✅ **پشتیبانی CLI**: رابط خط فرمان کامل برای اتوماسیون
-- ✅ **ابزار عیب‌یابی**: بررسی‌کننده سلامت سیستم داخلی
-- ✅ **اعتبارسنجی ورودی**: اعتبارسنجی دامنه و پورت قبل از پیکربندی
-- ✅ **لاگ پیشرفته**: لاگ‌های زمان‌دار با خروجی رنگی
-- ✅ **حذف‌کننده**: حذف تمیز با حفظ پشتیبان
-
-### 📸 پیش‌نمایش
-
-![پیش‌نمایش ترمینال](C:/Users/lol/.gemini/antigravity/brain/9f792fe4-3d77-44c6-97d9-5f27799c658d/terminal_preview_1765035405871.png)
-
-### ⚡ نصب سریع
-
+### نصب با یک دستور
 ```bash
 git clone https://github.com/tawanamohammadi/haprox-marz.git
 cd haprox-marz
@@ -233,19 +112,194 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
-**نصب تک‌خطی:**
+یا **نصب مستقیم:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/tawanamohammadi/haprox-marz/main/install.sh | sudo bash
 ```
 
-### 🎮 استفاده
+---
 
-#### حالت تعاملی
+## 📚 راهنمای گام‌به‌گام
+
+### قسمت اول: نصب HAProxy (مدیریت چند دامنه)
+
+#### گام 1: اجرای نصب‌کننده
 ```bash
 sudo ./install.sh
 ```
 
-#### حالت خط فرمان
+منوی زیر نمایش داده می‌شود:
+```
+╔═════════════════════════════════════════════════╗
+║      Marzban & HAProxy Automation Suite         ║
+║           Secure. Fast. Reliable.               ║
+╚═════════════════════════════════════════════════╝
+
+Please select an option:
+1) 🛡️  Install HAProxy Router (SNI)
+2) 🌩️  Install Cloudflare Warp (Marzban)
+3) 🚀  Install BOTH (Full Setup)
+4) 🔍  Run Diagnostics
+5) 💾  List Backups
+6) ⏮️  Rollback (Restore Backup)
+7) 🗑️  Uninstall
+0) ❌  Exit
+
+Enter your choice:
+```
+
+#### گام 2: انتخاب گزینه 1 (HAProxy)
+عدد `1` را وارد کنید و Enter بزنید.
+
+#### گام 3: وارد کردن دامنه‌ها
+اسکریپت از شما دامنه‌های زیر را می‌خواهد:
+
+```bash
+📥 Panel domain (e.g. panel.example.com): panel.yourdomain.com
+📥 VLESS+WS domain: vless.yourdomain.com
+📥 VMESS+TCP domain: vmess.yourdomain.com
+📥 XHTTP domain (e.g. for Trojan): trojan.yourdomain.com
+📥 Hysteria domain: hysteria.yourdomain.com
+📥 Reality domain: reality.yourdomain.com
+```
+
+**نکته مهم:** این دامنه‌ها باید از قبل به IP سرور شما متصل شده باشند.
+
+#### گام 4: وارد کردن پورت‌های داخلی
+اسکریپت پورت‌های پیش‌فرض را پیشنهاد می‌دهد. اگر تغییری نمی‌خواهید، فقط Enter بزنید:
+
+```bash
+📍 Local port for panel [8000]: ← Enter بزنید
+📍 Port for VLESS+WS [1001]: ← Enter بزنید
+📍 Port for VMESS+TCP [1002]: ← Enter بزنید
+📍 Port for XHTTP [1003]: ← Enter بزنید
+📍 Port for Hysteria [1004]: ← Enter بزنید
+📍 Port for Reality [1005]: ← Enter بزنید
+```
+
+#### گام 5: تایید نصب
+اسکریپت:
+- ✅ HAProxy را نصب می‌کند
+- ✅ تنظیمات را ایجاد می‌کند
+- ✅ سرویس را راه‌اندازی می‌کند
+- ✅ خلاصه تنظیمات را نمایش می‌دهد
+
+**خروجی نهایی:**
+```
+✅ HAProxy installation and configuration complete!
+➡️  Config file: /etc/haproxy/haproxy.cfg
+➡️  Status: systemctl status haproxy
+
+📋 Configuration Summary:
+  Panel:    panel.yourdomain.com -> 127.0.0.1:8000
+  VLESS+WS: vless.yourdomain.com -> 127.0.0.1:1001
+  VMESS+TCP: vmess.yourdomain.com -> 127.0.0.1:1002
+  ...
+```
+
+#### گام 6: تنظیم سرویس‌های پشتی
+حالا باید سرویس‌های خود (Xray، پنل مرزبان) را روی پورت‌های داخلی تنظیم کنید:
+
+**مثال برای پنل مرزبان:**
+```bash
+# فایل docker-compose.yml را ویرایش کنید
+ports:
+  - "8000:8000"  # به جای 443:8000
+```
+
+**مثال برای Xray:**
+```json
+{
+  "inbounds": [
+    {
+      "port": 1001,  // VLESS
+      "protocol": "vless",
+      ...
+    }
+  ]
+}
+```
+
+---
+
+### قسمت دوم: نصب Warp (دسترسی بدون محدودیت)
+
+#### گام 1: اجرای نصب‌کننده
+```bash
+sudo ./install.sh
+```
+
+#### گام 2: انتخاب گزینه 2 (Warp)
+عدد `2` را وارد کنید.
+
+#### گام 3: انتخاب روش نصب
+```
+Choose setup method:
+1) Xray core method (recommended)  ← این را انتخاب کنید
+2) Wireguard kernel method
+
+Enter your choice (1 or 2): 1
+```
+
+**توصیه:** گزینه 1 را انتخاب کنید (سازگاری بهتر با مرزبان).
+
+#### گام 4: کلید Warp+ (اختیاری)
+```
+Do you have a Warp+ license key? (y/n): n
+```
+
+اگر کلید Warp+ دارید `y` بزنید، در غیر این صورت `n`.
+
+#### گام 5: انتخاب ترافیک
+```
+Route ALL traffic through Warp? (y/n): n
+```
+
+**توصیه:** `n` بزنید تا فقط سایت‌های خاص (Google، ChatGPT، Netflix) از Warp استفاده کنند.
+
+#### گام 6: ادغام خودکار با مرزبان
+```
+Do you want to automatically integrate Warp into Marzban config? (y/n): y
+```
+
+`y` بزنید تا اسکریپت به طور خودکار تنظیمات را به مرزبان اضافه کند.
+
+#### گام 7: مسیر فایل تنظیمات مرزبان
+```
+Enter Marzban core config path [/var/lib/marzban/core.json]: ← Enter بزنید
+```
+
+اگر مرزبان را با Docker نصب کرده‌اید، فقط Enter بزنید.
+
+#### گام 8: تایید نصب
+اسکریپت:
+- ✅ Warp را نصب می‌کند
+- ✅ تنظیمات JSON ایجاد می‌کند
+- ✅ به تنظیمات مرزبان اضافه می‌کند
+- ✅ اعتبارسنجی JSON انجام می‌دهد
+
+**خروجی نهایی:**
+```
+✅ Warp successfully integrated into Marzban!
+⚠️  Please restart Marzban for changes to take effect:
+   marzban restart
+```
+
+#### گام 9: راه‌اندازی مجدد مرزبان
+```bash
+marzban restart
+```
+
+یا اگر با Docker نصب کرده‌اید:
+```bash
+docker-compose restart
+```
+
+---
+
+## 🎮 استفاده از CLI (برای کاربران پیشرفته)
+
+### نصب سریع
 ```bash
 # نصب فقط HAProxy
 sudo ./install.sh --haproxy
@@ -255,130 +309,227 @@ sudo ./install.sh --warp
 
 # نصب هر دو
 sudo ./install.sh --both
+```
 
-# اجرای عیب‌یابی
+### عیب‌یابی
+```bash
+# بررسی وضعیت سیستم
 sudo ./install.sh --diagnostics
-
-# بازگردانی به آخرین نسخه پشتیبان
-sudo ./install.sh --rollback
 
 # لیست نسخه‌های پشتیبان
 sudo ./install.sh --list-backups
 
-# حذف کامل
-sudo ./install.sh --uninstall
-
-# نمایش راهنما
-sudo ./install.sh --help
+# بازگردانی به نسخه قبلی
+sudo ./install.sh --rollback
 ```
 
-### 🌟 قابلیت‌ها
-
-#### مسیریاب SNI با HAProxy
-- **عبور TLS**: مسیریابی چندین دامنه روی پورت 443
-- **پشتیبانی پروتکل**: VLESS WS، VMess TCP، Trojan/XHTTP، Hysteria2، Reality، Panel
-- **پیکربندی خودکار**: تولید خودکار تنظیمات تمیز HAProxy
-- **اعتبارسنجی**: اعتبارسنجی تنظیمات قبل از اعمال تغییرات
-- **بررسی پورت**: اطمینان از در دسترس بودن پورت 443 قبل از نصب
-
-#### ادغام Cloudflare Warp
-- **دو روش**: هسته Xray یا کرنل WireGuard
-- **پشتیبانی Warp+**: ادغام اختیاری کلید لایسنس
-- **ادغام ایمن**: تزریق خودکار تنظیمات مرزبان با اعتبارسنجی
-- **مکانیسم تلاش مجدد**: دانلود قوی با تلاش‌های خودکار
-- **اعتبارسنجی JSON**: اطمینان از معتبر بودن تنظیمات قبل از ذخیره
-
-#### پشتیبان‌گیری و بازگردانی
-- **پشتیبان‌گیری خودکار**: تمام تنظیمات قبل از تغییرات پشتیبان می‌شوند
-- **ذخیره‌سازی زمان‌دار**: شناسایی آسان نسخه‌های پشتیبان
-- **بازگردانی تک‌دستوری**: بازگشت سریع به هر حالت قبلی
-- **بازگردانی انتخابی**: بازگردانی اجزای خاص
-
-### 📋 جریان نصب
-
-![جریان نصب](C:/Users/lol/.gemini/antigravity/brain/9f792fe4-3d77-44c6-97d9-5f27799c658d/installation_flow_1765035468051.png)
-
-### 🔧 پیش‌نیازها
-
-- **سیستم‌عامل**: Ubuntu 20.04+ یا Debian 11/12
-- **دسترسی**: دسترسی root یا sudo
-- **پورت**: پورت 443 باید آزاد باشد
-- **DNS**: رکوردها برای زیردامنه‌های SNI پیکربندی شده باشند
-- **وابستگی‌ها**: curl، jq، wireguard-tools (نصب خودکار)
-
-### 🔍 عیب‌یابی
-
-بررسی وضعیت سیستم در هر زمان:
+### حذف
 ```bash
+# حذف کامل
+sudo ./install.sh --uninstall
+```
+
+---
+
+## ❓ سوالات متداول
+
+### 1. آیا باید هر دو قسمت را نصب کنم؟
+**خیر.** بسته به نیاز خود:
+- فقط مشکل چند پورت دارید؟ → فقط HAProxy نصب کنید
+- فقط مشکل فیلترینگ دارید؟ → فقط Warp نصب کنید
+- هر دو مشکل را دارید؟ → هر دو را نصب کنید
+
+### 2. آیا مرزبان باید از قبل نصب باشد؟
+**برای HAProxy:** خیر، می‌توانید ابتدا HAProxy را نصب کنید.  
+**برای Warp:** بله، مرزبان باید نصب باشد.
+
+### 3. دامنه‌ها را از کجا بگیرم؟
+شما باید:
+1. یک دامنه بخرید (مثلاً از Namecheap، Cloudflare)
+2. زیردامنه‌ها بسازید (panel، vless، vmess، ...)
+3. رکورد A را به IP سرور خود متصل کنید
+
+### 4. آیا SSL/TLS نیاز است؟
+**بله.** HAProxy فقط ترافیک را هدایت می‌کند. گواهی SSL باید روی سرویس‌های پشتی (Xray، پنل) نصب شود.
+
+**راه‌حل آسان:** از Certbot استفاده کنید:
+```bash
+sudo apt install certbot
+sudo certbot certonly --standalone -d panel.yourdomain.com
+```
+
+### 5. اگر اشتباهی کردم چه کنم؟
+**نگران نباشید!** اسکریپت قبل از هر تغییری، نسخه پشتیبان می‌گیرد:
+```bash
+# بازگردانی به نسخه قبلی
+sudo ./install.sh --rollback
+```
+
+### 6. چگونه بفهمم Warp کار می‌کند؟
+```bash
+# اجرای عیب‌یابی
 sudo ./install.sh --diagnostics
 ```
 
-ابزار عیب‌یابی موارد زیر را بررسی می‌کند:
-- ✅ اطلاعات سیستم
-- ✅ در دسترس بودن پورت‌ها
-- ✅ وضعیت سرویس‌ها (HAProxy، Wireguard، Marzban)
-- ✅ وجود فایل‌های پیکربندی
-- ✅ اتصال Warp
-- ✅ وضعیت پشتیبان
-- ✅ وابستگی‌ها
-
-### 🛠️ پیکربندی
-
-#### HAProxy
-- **تنظیمات**: `/etc/haproxy/haproxy.cfg`
-- **سرویس**: `systemctl status haproxy`
-- **لاگ‌ها**: `journalctl -u haproxy -f`
-
-#### Warp
-- **خروجی Xray**: `/root/warp_xray_outbound.json`
-- **قانون مسیریابی**: `/root/warp_routing_rule.json`
-- **تنظیمات کرنل**: `/etc/wireguard/warp.conf`
-- **سرویس**: `systemctl status wg-quick@warp`
-
-#### پشتیبان‌ها
-- **مکان**: `.backup/<timestamp>/`
-- **آخرین**: `.backup/latest`
-
-### 🆘 رفع مشکلات
-
-**پورت 443 در حال استفاده:**
+یا از داخل سرور:
 ```bash
-# بررسی چه چیزی از پورت استفاده می‌کند
+curl --interface warp https://cloudflare.com/cdn-cgi/trace
+```
+
+باید `warp=on` را ببینید.
+
+### 7. چگونه تنظیمات را تغییر دهم؟
+**برای HAProxy:**
+```bash
+sudo nano /etc/haproxy/haproxy.cfg
+sudo systemctl restart haproxy
+```
+
+**برای Warp:**
+```bash
+sudo nano /var/lib/marzban/core.json
+marzban restart
+```
+
+### 8. آیا با پنل‌های دیگر کار می‌کند؟
+**HAProxy:** بله، با هر سرویسی که TLS دارد.  
+**Warp:** فقط با مرزبان (یا Xray مستقیم).
+
+---
+
+## 🆘 رفع مشکلات
+
+### مشکل 1: پورت 443 اشغال است
+**علامت:**
+```
+[ERROR] Port 443 is already in use
+```
+
+**راه‌حل:**
+```bash
+# ببینید چه چیزی از پورت 443 استفاده می‌کند
 sudo ss -tulnp | grep :443
 
 # یا از عیب‌یابی استفاده کنید
 sudo ./install.sh --diagnostics
 ```
 
-**بازگردانی از پشتیبان:**
+معمولاً Nginx یا Apache است. آنها را متوقف کنید:
 ```bash
-# لیست پشتیبان‌ها
-sudo ./install.sh --list-backups
-
-# بازگردانی آخرین
-sudo ./install.sh --rollback
-
-# بازگردانی پشتیبان خاص
-sudo ./install.sh --rollback 20250106_120000
+sudo systemctl stop nginx
+sudo systemctl stop apache2
 ```
 
-**Warp کار نمی‌کند:**
+### مشکل 2: HAProxy شروع نمی‌شود
+**بررسی لاگ‌ها:**
 ```bash
-# اجرای عیب‌یابی
-sudo ./install.sh --diagnostics
+sudo journalctl -u haproxy -n 50
+```
 
-# بررسی لاگ‌های مرزبان
+**اعتبارسنجی تنظیمات:**
+```bash
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+```
+
+### مشکل 3: Warp به مرزبان اضافه نمی‌شود
+**بررسی فایل JSON:**
+```bash
+# اعتبارسنجی JSON
+jq empty /var/lib/marzban/core.json
+```
+
+اگر خطا داد، از نسخه پشتیبان استفاده کنید:
+```bash
+sudo ./install.sh --rollback
+```
+
+### مشکل 4: دامنه‌ها کار نمی‌کنند
+**بررسی DNS:**
+```bash
+nslookup panel.yourdomain.com
+```
+
+باید IP سرور شما را نشان دهد.
+
+**بررسی HAProxy:**
+```bash
+sudo systemctl status haproxy
+```
+
+### مشکل 5: Warp کار نمی‌کند
+**بررسی اتصال:**
+```bash
+sudo ./install.sh --diagnostics
+```
+
+**بررسی لاگ‌های مرزبان:**
+```bash
 docker logs marzban -f
 ```
 
-### 📜 مجوز
+**راه‌اندازی مجدد:**
+```bash
+marzban restart
+```
 
-تحت [مجوز MIT](LICENSE) منتشر شده است.
+### مشکل 6: نمی‌دانم چه اتفاقی افتاده
+**اجرای عیب‌یابی کامل:**
+```bash
+sudo ./install.sh --diagnostics
+```
 
-### 📚 مستندات
-
-مستندات کامل در: [https://tawanamohammadi.github.io/haprox-marz](https://tawanamohammadi.github.io/haprox-marz)
+این به شما نشان می‌دهد:
+- ✅ وضعیت سیستم
+- ✅ پورت‌های باز/بسته
+- ✅ وضعیت سرویس‌ها
+- ✅ فایل‌های تنظیمات
+- ✅ نسخه‌های پشتیبان
 
 ---
 
-**SEO Keywords**: HAProxy SNI Multiplexer, Marzban Warp Installer, Cloudflare Warp WireGuard, VLESS VMess Trojan Hysteria Reality, Marzban Panel Setup, TLS Router 443, Ubuntu Debian, Rollback System, Safe Config Integration, CLI Automation Tool
+## 🔒 امنیت
+
+### نکات امنیتی
+1. ✅ همیشه از HTTPS استفاده کنید
+2. ✅ گواهی‌های SSL را به‌روز نگه دارید
+3. ✅ پورت‌های غیرضروری را ببندید
+4. ✅ فایروال را فعال کنید
+5. ✅ به‌طور منظم نسخه پشتیبان بگیرید
+
+### فایروال
+```bash
+# اجازه فقط به پورت 443
+sudo ufw allow 443/tcp
+sudo ufw enable
+```
+
+---
+
+## 📞 پشتیبانی
+
+### گزارش مشکل
+اگر مشکلی پیدا کردید:
+1. ابتدا [سوالات متداول](#سوالات-متداول) را بخوانید
+2. [رفع مشکلات](#رفع-مشکلات) را بررسی کنید
+3. عیب‌یابی را اجرا کنید: `sudo ./install.sh --diagnostics`
+4. در [GitHub Issues](https://github.com/tawanamohammadi/haprox-marz/issues) مشکل را گزارش دهید
+
+### مستندات
+- 📚 [مستندات کامل](https://tawanamohammadi.github.io/haprox-marz)
+- 🇬🇧 [English Documentation](https://tawanamohammadi.github.io/haprox-marz)
+- 📖 [راهنمای HAProxy](docs/haproxy.md)
+- 📖 [راهنمای Warp](docs/warp.md)
+
+---
+
+## 📜 مجوز
+
+این پروژه تحت [مجوز MIT](LICENSE) منتشر شده است.
+
+---
+
+## 🙏 تشکر
+
+ساخته شده با ❤️ توسط [Tawana Mohammadi](https://github.com/tawanamohammadi)
+
+اگر این ابزار به شما کمک کرد، لطفاً یک ⭐ به پروژه بدهید!
