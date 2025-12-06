@@ -4,14 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ابزار حرفه‌ای برای مدیریت چند دامنه روی یک پورت و پیکربندی Warp برای مرزبان">
-    <title>HAProxy & Marzban - راهنمای کامل نصب و راه‌اندازی</title>
 
+    <!-- SEO Meta Tags -->
+    <title>HAProxy & Marzban - ابزار حرفه‌ای مدیریت چند دامنه و Warp | توانا محمدی</title>
+    <meta name="description"
+        content="ابزار رایگان و متن‌باز برای مدیریت چند دامنه روی یک پورت با HAProxy و دسترسی بدون محدودیت با Cloudflare Warp. نصب آسان، پشتیبانی کامل، و مستندات فارسی.">
+    <meta name="keywords"
+        content="HAProxy, مرزبان, Marzban, Warp, Cloudflare, VPN, پروکسی, SNI, TLS, فیلترشکن, ضدفیلتر, توانا محمدی">
+    <meta name="author" content="Tawana Mohammadi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tawanamohammadi.github.io/haprox-marz/">
+    <meta property="og:title" content="HAProxy & Marzban - ابزار حرفه‌ای مدیریت چند دامنه و Warp">
+    <meta property="og:description"
+        content="ابزار رایگان و متن‌باز برای مدیریت چند دامنه روی یک پورت و دسترسی بدون محدودیت با Cloudflare Warp">
+    <meta property="og:image"
+        content="https://tawanamohammadi.github.io/haprox-marz/assets/images/terminal_preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tawanamohammadi.github.io/haprox-marz/">
+    <meta property="twitter:title" content="HAProxy & Marzban - ابزار حرفه‌ای مدیریت چند دامنه و Warp">
+    <meta property="twitter:description" content="ابزار رایگان و متن‌باز برای مدیریت چند دامنه روی یک پورت">
+    <meta property="twitter:image"
+        content="https://tawanamohammadi.github.io/haprox-marz/assets/images/terminal_preview.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HAProxy & Marzban Automation Suite",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Tawana Mohammadi",
+        "url": "https://github.com/tawanamohammadi"
+      },
+      "description": "ابزار حرفه‌ای برای مدیریت چند دامنه روی یک پورت و پیکربندی Warp برای مرزبان"
+    }
+    </script>
 
     <style>
         body {
@@ -20,17 +74,59 @@
 
         .hero {
             padding: 6rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            font-weight: 800;
         }
 
         .hero .subtitle {
             font-size: 1.5rem;
             color: var(--text-secondary);
             margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
         }
 
         .problem-solution {
@@ -92,10 +188,12 @@
             margin-bottom: 1rem;
             cursor: pointer;
             transition: all var(--transition-base);
+            border: 1px solid var(--border-color);
         }
 
         .faq-item:hover {
             border-color: var(--primary);
+            transform: translateX(-4px);
         }
 
         .faq-answer {
@@ -109,6 +207,91 @@
             display: block;
         }
 
+        .github-corner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 0;
+            z-index: 1001;
+        }
+
+        .github-corner svg {
+            fill: var(--primary);
+            color: var(--bg-primary);
+        }
+
+        .github-corner:hover svg {
+            fill: var(--accent);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-glass);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-base);
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .author-card {
+            background: var(--bg-glass);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+        }
+
         @media (max-width: 768px) {
             .problem-solution {
                 grid-template-columns: 1fr;
@@ -117,21 +300,42 @@
             .hero h1 {
                 font-size: 2rem;
             }
+
+            .stats {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- GitHub Corner -->
+    <a href="https://github.com/tawanamohammadi/haprox-marz" class="github-corner" aria-label="View source on GitHub"
+        target="_blank">
+        <svg width="80" height="80" viewBox="0 0 250 250"
+            style="position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path
+                d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path
+                d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav">
                 <button class="lang-switch" onclick="window.location.href='en/index.html'">English</button>
                 <ul class="nav-links">
-                    <li><a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a></li>
+                    <li><a href="https://github.com/tawanamohammadi/haprox-marz" target="_blank">GitHub</a></li>
                     <li><a href="#troubleshooting">رفع مشکل</a></li>
                     <li><a href="#faq">سوالات</a></li>
                     <li><a href="#guide">راهنما</a></li>
-                    <li><a href="#what">این چیست؟</a></li>
+                    <li><a href="#features">ویژگی‌ها</a></li>
+                    <li><a href="#what">معرفی</a></li>
                 </ul>
                 <div class="logo">🚀 HAProxy-Marz</div>
             </nav>
@@ -147,6 +351,48 @@
                 این ابزار دو مشکل اصلی سرورهای VPN را حل می‌کند: <strong>مدیریت چند پورت</strong> و <strong>فیلترینگ
                     سرویس‌ها</strong>
             </p>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">2.0.0</div>
+                    <div class="stat-label">نسخه پیشرفته</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">رایگان</div>
+                    <div class="stat-label">متن‌باز MIT</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">پشتیبانی فارسی</div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://github.com/tawanamohammadi/haprox-marz" class="social-btn" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    <span>GitHub Star</span>
+                </a>
+                <a href="https://github.com/tawanamohammadi/haprox-marz/issues" class="social-btn" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                        <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" />
+                    </svg>
+                    <span>گزارش مشکل</span>
+                </a>
+                <a href="https://github.com/tawanamohammadi" class="social-btn" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    <span>دنبال کنید</span>
+                </a>
+            </div>
+
             <div class="hero-buttons">
                 <a href="#guide" class="btn btn-primary">شروع نصب</a>
                 <a href="#what" class="btn btn-secondary">بیشتر بدانید</a>
@@ -208,6 +454,51 @@
             <div class="success-box" style="text-align: center;">
                 <h3>💡 نکته مهم</h3>
                 <p>شما می‌توانید فقط یکی از این دو را نصب کنید یا هر دو را با هم. بسته به نیاز خودتان!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="installation" id="features">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem;">✨ ویژگی‌های نسخه 2.0.0</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏮️</div>
+                    <h3>سیستم Rollback</h3>
+                    <p>پشتیبان‌گیری خودکار قبل از هر تغییر و بازگردانی با یک دستور</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>ادغام ایمن</h3>
+                    <p>تزریق دقیق JSON به مرزبان بدون خراب کردن تنظیمات موجود</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>پشتیبانی CLI</h3>
+                    <p>رابط خط فرمان کامل برای اتوماسیون</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>عیب‌یابی خودکار</h3>
+                    <p>بررسی سلامت سیستم با یک دستور</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>اعتبارسنجی</h3>
+                    <p>بررسی دامنه و پورت قبل از پیکربندی</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>لاگ پیشرفته</h3>
+                    <p>لاگ‌های زمان‌دار با رنگ‌بندی</p>
+                </div>
             </div>
         </div>
     </section>
@@ -467,21 +758,81 @@ marzban restart</code></pre>
         </div>
     </section>
 
+    <!-- Author Section -->
+    <section class="features">
+        <div class="container">
+            <div class="author-card">
+                <img src="https://github.com/tawanamohammadi.png" alt="Tawana Mohammadi" class="author-avatar">
+                <h3>توانا محمدی</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    توسعه‌دهنده متن‌باز و علاقه‌مند به ابزارهای اتوماسیون
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/tawanamohammadi" class="social-btn" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-links">
-                <a href="en/index.html">English</a>
-                <a href="https://github.com/tawanamohammadi/haprox-marz/blob/main/LICENSE">مجوز</a>
-                <a href="https://github.com/tawanamohammadi/haprox-marz/issues">گزارش مشکل</a>
-                <a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; text-align: right;">
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">پروژه</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="https://github.com/tawanamohammadi/haprox-marz" target="_blank">مخزن GitHub</a>
+                        <a href="https://github.com/tawanamohammadi/haprox-marz/releases">نسخه‌ها</a>
+                        <a href="https://github.com/tawanamohammadi/haprox-marz/blob/main/CHANGELOG.md">تاریخچه
+                            تغییرات</a>
+                        <a href="https://github.com/tawanamohammadi/haprox-marz/blob/main/LICENSE">مجوز MIT</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">مستندات</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="#guide">راهنمای نصب</a>
+                        <a href="#faq">سوالات متداول</a>
+                        <a href="#troubleshooting">رفع مشکلات</a>
+                        <a href="https://github.com/tawanamohammadi/haprox-marz/blob/main/README.md">README</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">پشتیبانی</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="https://github.com/tawanamohammadi/haprox-marz/issues">گزارش مشکل</a>
+                        <a href="https://github.com/tawanamohammadi/haprox-marz/discussions">بحث و گفتگو</a>
+                        <a href="https://github.com/tawanamohammadi">تماس با سازنده</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;">زبان</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="index.html">🇮🇷 فارسی</a>
+                        <a href="en/index.html">🇬🇧 English</a>
+                    </div>
+                </div>
             </div>
-            <p style="color: var(--text-muted);">
-                ساخته شده با ❤️ توسط <a href="https://github.com/tawanamohammadi">توانا محمدی</a>
-            </p>
-            <p style="color: var(--text-muted); font-size: 0.875rem;">
-                اگر این ابزار به شما کمک کرد، لطفاً یک ⭐ به پروژه بدهید!
-            </p>
+
+            <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; text-align: center;">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                    ساخته شده با ❤️ توسط <a href="https://github.com/tawanamohammadi"
+                        style="color: var(--primary);">توانا محمدی</a>
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+                    منتشر شده تحت مجوز MIT • نسخه 2.0.0 • © 2025
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">
+                    اگر این ابزار به شما کمک کرد، لطفاً یک ⭐ به پروژه بدهید!
+                </p>
+            </div>
         </div>
     </footer>
 
