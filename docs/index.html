@@ -1,20 +1,209 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HAProxy & Marzban Automation Suite</title>
-<meta name="description" content="Unified installer for HAProxy SNI TLS routing and Cloudflare Warp for Marzban. Bilingual docs and quick start.">
-<link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/">
-<link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/en/" hreflang="en">
-<link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/fa/" hreflang="fa">
-<meta property="og:title" content="HAProxy & Marzban Automation Suite">
-<meta property="og:description" content="Install HAProxy SNI router and Cloudflare Warp for Marzban. Bilingual guides.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://tawanamohammadi.github.io/haprox-marz/">
-<link rel="stylesheet" href="./assets/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HAProxy & Marzban Automation Suite - Professional automation tool for HAProxy SNI routing and Cloudflare Warp integration">
+    <meta name="keywords" content="HAProxy, Marzban, Warp, Cloudflare, SNI, TLS, VPN, Proxy, Automation">
+    <meta name="author" content="Tawana Mohammadi">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="HAProxy & Marzban Automation Suite">
+    <meta property="og:description" content="Professional automation tool with rollback, safe integration, and CLI support">
+    <meta property="og:type" content="website">
+    
+    <title>HAProxy & Marzban Automation Suite - Enhanced Edition</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body data-redirector="true">
-<script src="./assets/script.js"></script>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">🚀 HAProxy-Marz</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#usage">Usage</a></li>
+                    <li><a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a></li>
+                </ul>
+                <button class="lang-switch" onclick="window.location.href='fa/index.html'">فارسی</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in-up">HAProxy & Marzban<br>Automation Suite</h1>
+            <p class="fade-in-up">Professional automation tool for HAProxy SNI routing and Cloudflare Warp integration with Marzban panel. Enhanced Edition v2.0.0</p>
+            <div class="hero-buttons fade-in-up">
+                <a href="#installation" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/tawanamohammadi/haprox-marz" class="btn btn-secondary">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem;">✨ What's New in v2.0.0</h2>
+            <div class="features-grid">
+                <div class="glass-card feature fade-in-up">
+                    <div class="feature-icon">⏮️</div>
+                    <h3>Rollback System</h3>
+                    <p>Automatic backups with one-command restore. Never lose your configuration again.</p>
+                </div>
+                
+                <div class="glass-card feature fade-in-up">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Safe Integration</h3>
+                    <p>Surgical JSON injection into Marzban configs without breaking existing settings.</p>
+                </div>
+                
+                <div class="glass-card feature fade-in-up">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>CLI Support</h3>
+                    <p>Full command-line interface for automation and scripting.</p>
+                </div>
+                
+                <div class="glass-card feature fade-in-up">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Diagnostics Tool</h3>
+                    <p>Built-in system health checker to verify your setup.</p>
+                </div>
+                
+                <div class="glass-card feature fade-in-up">
+                    <div class="feature-icon">✅</div>
+                    <h3>Input Validation</h3>
+                    <p>Domain and port validation before configuration to prevent errors.</p>
+                </div>
+                
+                <div class="glass-card feature fade-in-up">
+                    <div class="feature-icon">📝</div>
+                    <h3>Enhanced Logging</h3>
+                    <p>Timestamped logs with color-coded output for easy debugging.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section class="installation" id="installation">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">⚡ Quick Installation</h2>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'install-code')">Copy</button>
+                </div>
+                <pre><code id="install-code">git clone https://github.com/tawanamohammadi/haprox-marz.git
+cd haprox-marz
+chmod +x install.sh
+sudo ./install.sh</code></pre>
+            </div>
+
+            <h3 style="margin-top: 3rem; text-align: center;">One-Liner Installation</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'oneliner-code')">Copy</button>
+                </div>
+                <pre><code id="oneliner-code">curl -fsSL https://raw.githubusercontent.com/tawanamohammadi/haprox-marz/main/install.sh | sudo bash</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Section -->
+    <section class="features" id="usage">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">🎮 Usage Examples</h2>
+            
+            <div class="glass-card" style="margin-bottom: 2rem;">
+                <h3>Interactive Mode</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">bash</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'interactive-code')">Copy</button>
+                    </div>
+                    <pre><code id="interactive-code">sudo ./install.sh</code></pre>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-bottom: 2rem;">
+                <h3>CLI Mode</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">bash</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'cli-code')">Copy</button>
+                    </div>
+                    <pre><code id="cli-code"># Install HAProxy only
+sudo ./install.sh --haproxy
+
+# Install Warp only
+sudo ./install.sh --warp
+
+# Install both
+sudo ./install.sh --both
+
+# Run diagnostics
+sudo ./install.sh --diagnostics
+
+# Rollback to latest backup
+sudo ./install.sh --rollback
+
+# Uninstall everything
+sudo ./install.sh --uninstall</code></pre>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>Diagnostics & Troubleshooting</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">bash</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'diag-code')">Copy</button>
+                    </div>
+                    <pre><code id="diag-code"># Check system status
+sudo ./install.sh --diagnostics
+
+# List available backups
+sudo ./install.sh --list-backups
+
+# Restore specific backup
+sudo ./install.sh --rollback 20250106_120000</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a>
+                <a href="https://github.com/tawanamohammadi/haprox-marz/issues">Issues</a>
+                <a href="https://github.com/tawanamohammadi/haprox-marz/blob/main/LICENSE">License</a>
+                <a href="fa/index.html">فارسی</a>
+            </div>
+            <p style="color: var(--text-muted);">
+                Made with ❤️ by <a href="https://github.com/tawanamohammadi">Tawana Mohammadi</a>
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">
+                Released under the MIT License
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
-

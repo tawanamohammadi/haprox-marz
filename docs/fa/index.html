@@ -1,131 +1,228 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>نصب‌کننده یکپارچه HAProxy و Warp برای مرزبان</title>
-  <meta name="description" content="نصب و راه‌اندازی HAProxy مبتنی بر SNI روی پورت ۴۴۳ و یکپارچه‌سازی Cloudflare Warp برای پنل مرزبان. راهنمای دوزبانه و رسپانسیو.">
-  <meta name="keywords" content="هاپروکسی SNI، مرزبان Warp، کلادفلر Warp وایرگارد، VLESS VMess Trojan Hysteria Reality، TLS 443، اوبونتو دبیان">
-  <link rel="canonical" href="https://tawanamohammadi.github.io/haprox-marz/fa/">
-  <link rel="alternate" href="https://tawanamohammadi.github.io/haprox-marz/en/" hreflang="en">
-  <link rel="stylesheet" href="../assets/styles.css">
 
-  <!-- فقط استایل‌های جدید (پایین گذاشتم) -->
-  <link rel="stylesheet" href="../assets/advanced.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="مجموعه اتوماسیون HAProxy و مرزبان - ابزار حرفه‌ای برای مسیریابی SNI با HAProxy و ادغام Cloudflare Warp">
+  <meta name="keywords" content="HAProxy, مرزبان, Warp, Cloudflare, SNI, TLS, VPN, پروکسی, اتوماسیون">
+  <meta name="author" content="توانا محمدی">
+
+  <title>مجموعه اتوماسیون HAProxy و مرزبان - نسخه پیشرفته</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    body {
+      font-family: 'Inter', 'Vazir', 'Tahoma', sans-serif;
+    }
+
+    .nav-links {
+      flex-direction: row-reverse;
+    }
+
+    .hero-buttons {
+      flex-direction: row-reverse;
+    }
+
+    .code-header {
+      flex-direction: row-reverse;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- لایه‌های بک‌گراند تزئینی (اختیاری و بی‌خطر) -->
-  <div class="bg-orbs" aria-hidden="true">
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
-    <span class="noise"></span>
-  </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <button class="lang-switch" onclick="window.location.href='../index.html'">English</button>
+        <ul class="nav-links">
+          <li><a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a></li>
+          <li><a href="#usage">استفاده</a></li>
+          <li><a href="#installation">نصب</a></li>
+          <li><a href="#features">ویژگی‌ها</a></li>
+        </ul>
+        <div class="logo">🚀 HAProxy-Marz</div>
+      </nav>
+    </div>
+  </header>
 
-  <div class="container">
-
-    <!-- NAV (کلاس‌های قبلی حفظ شده) -->
-    <div class="nav glass">
-      <div class="brand">HAProxy & Marzban Suite</div>
-      <div class="actions">
-        <button class="btn secondary" onclick="setLang('en')">English</button>
-        <a class="btn secondary" href="https://github.com/tawanamohammadi/haprox-marz">گیت‌هاب</a>
-        <a class="btn" href="#install">نصب سریع</a>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="fade-in-up">مجموعه اتوماسیون<br>HAProxy و مرزبان</h1>
+      <p class="fade-in-up">ابزار حرفه‌ای اتوماسیون برای مسیریابی SNI با HAProxy و ادغام Cloudflare Warp با پنل مرزبان.
+        نسخه پیشرفته 2.0.0</p>
+      <div class="hero-buttons fade-in-up">
+        <a href="../index.html" class="btn btn-secondary">English</a>
+        <a href="#installation" class="btn btn-primary">شروع کنید</a>
       </div>
     </div>
+  </section>
 
-    <!-- HERO -->
-    <div class="hero hero-pro">
-      <div class="hero-copy">
-        <div class="kicker">Automation Suite</div>
-        <h1 class="title">نصب‌کننده حرفه‌ای HAProxy و Warp</h1>
-        <p class="subtitle">
-          مسیر‌دهی پیشرفته SNI روی پورت ۴۴۳ و ادغام امن Cloudflare Warp با پنل مرزبان.
-          ساده، سریع و امن.
-        </p>
-
-        <div class="hero-cta">
-          <a class="btn" href="#install">شروع کنید</a>
-          <a class="btn secondary" href="#features">ویژگی‌ها</a>
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 3rem;">✨ ویژگی‌های جدید نسخه 2.0.0</h2>
+      <div class="features-grid">
+        <div class="glass-card feature fade-in-up">
+          <div class="feature-icon">⏮️</div>
+          <h3>سیستم بازگردانی</h3>
+          <p>پشتیبان‌گیری خودکار با بازگردانی تک‌دستوری. دیگر هرگز تنظیمات خود را از دست ندهید.</p>
         </div>
 
-        <!-- نوار آمار کوچک (کاملاً تزئینی) -->
-        <div class="stats">
-          <div class="stat"><span>پورت</span><b>443</b></div>
-          <div class="stat"><span>Docs</span><b>FA / EN</b></div>
-          <div class="stat"><span>License</span><b>MIT</b></div>
-        </div>
-      </div>
-
-      <div class="card hero-media tilt">
-        <img src="../assets/hero.svg" alt="HAProxy Warp" style="width:100%; border-radius:16px;">
-      </div>
-    </div>
-
-    <!-- FEATURES -->
-    <div class="section" id="features">
-      <h2>ویژگی‌های کلیدی</h2>
-      <div class="grid">
-        <div class="feature-card lift">
-          <div class="feature-icon">🚀</div>
-          <h3>مسیر‌دهی SNI</h3>
-          <p>پشتیبانی از VLESS, VMess, Trojan, Hysteria2, Reality روی یک پورت.</p>
-        </div>
-        <div class="feature-card lift">
+        <div class="glass-card feature fade-in-up">
           <div class="feature-icon">🔒</div>
-          <h3>Warp امن</h3>
-          <p>ادغام WireGuard با مرزبان، با حالت Xray یا Kernel.</p>
+          <h3>ادغام ایمن</h3>
+          <p>تزریق دقیق JSON به تنظیمات مرزبان بدون خراب کردن تنظیمات موجود.</p>
         </div>
-        <div class="feature-card lift">
-          <div class="feature-icon">📱</div>
-          <h3>رسپانسیو</h3>
-          <p>مستندات دوزبانه و بهینه برای موبایل و سئو.</p>
+
+        <div class="glass-card feature fade-in-up">
+          <div class="feature-icon">⌨️</div>
+          <h3>پشتیبانی CLI</h3>
+          <p>رابط خط فرمان کامل برای اتوماسیون و اسکریپت‌نویسی.</p>
+        </div>
+
+        <div class="glass-card feature fade-in-up">
+          <div class="feature-icon">🔍</div>
+          <h3>ابزار عیب‌یابی</h3>
+          <p>بررسی‌کننده سلامت سیستم داخلی برای تایید راه‌اندازی شما.</p>
+        </div>
+
+        <div class="glass-card feature fade-in-up">
+          <div class="feature-icon">✅</div>
+          <h3>اعتبارسنجی ورودی</h3>
+          <p>اعتبارسنجی دامنه و پورت قبل از پیکربندی برای جلوگیری از خطاها.</p>
+        </div>
+
+        <div class="glass-card feature fade-in-up">
+          <div class="feature-icon">📝</div>
+          <h3>لاگ پیشرفته</h3>
+          <p>لاگ‌های زمان‌دار با خروجی رنگی برای عیب‌یابی آسان.</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- INSTALL -->
-    <div class="section" id="install">
-      <h2>نصب سریع</h2>
+  <!-- Installation Section -->
+  <section class="installation" id="installation">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">⚡ نصب سریع</h2>
 
-      <div class="code code-pro">
-        <div class="code-head">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="code-title">Quick Install</span>
+      <div class="code-block">
+        <div class="code-header">
+          <button class="copy-btn" onclick="copyCode(this, 'install-code')">کپی</button>
+          <span class="code-lang">bash</span>
         </div>
-        <button class="btn copy" onclick="copyCode(this)">کپی</button>
-        <pre><code>git clone https://github.com/tawanamohammadi/haprox-marz.git
+        <pre><code id="install-code">git clone https://github.com/tawanamohammadi/haprox-marz.git
 cd haprox-marz
 chmod +x install.sh
 sudo ./install.sh</code></pre>
       </div>
 
-      <!-- Stepper پیشرفته اما class قبلی list/item حفظ شده -->
-      <div class="list stepper">
-        <div class="item"><span class="badge">۱</span>نصب HAProxy SNI</div>
-        <div class="item"><span class="badge">۲</span>نصب Warp برای مرزبان</div>
-        <div class="item"><span class="badge">۳</span>نصب کامل</div>
+      <h3 style="margin-top: 3rem; text-align: center;">نصب تک‌خطی</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <button class="copy-btn" onclick="copyCode(this, 'oneliner-code')">کپی</button>
+          <span class="code-lang">bash</span>
+        </div>
+        <pre><code id="oneliner-code">curl -fsSL https://raw.githubusercontent.com/tawanamohammadi/haprox-marz/main/install.sh | sudo bash</code></pre>
       </div>
     </div>
+  </section>
 
-    <div class="section">
-      <h2>پس از نصب Warp</h2>
-      <div class="list">
-        <div class="item"><span class="badge">۱</span>پنل مرزبان → تنظیمات هسته</div>
-        <div class="item"><span class="badge">۲</span>افزودن outbound از /root/warp_xray_outbound.json</div>
-        <div class="item"><span class="badge">۳</span>افزودن rule از /root/warp_routing_rule.json</div>
-        <div class="item"><span class="badge">۴</span>ذخیره و ری‌استارت</div>
-        <div class="item"><span class="badge">اسنیپت</span>/opt/marzban-warp/marzban_snippets.json</div>
+  <!-- Usage Section -->
+  <section class="features" id="usage">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">🎮 نمونه‌های استفاده</h2>
+
+      <div class="glass-card" style="margin-bottom: 2rem;">
+        <h3>حالت تعاملی</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <button class="copy-btn" onclick="copyCode(this, 'interactive-code')">کپی</button>
+            <span class="code-lang">bash</span>
+          </div>
+          <pre><code id="interactive-code">sudo ./install.sh</code></pre>
+        </div>
+      </div>
+
+      <div class="glass-card" style="margin-bottom: 2rem;">
+        <h3>حالت خط فرمان</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <button class="copy-btn" onclick="copyCode(this, 'cli-code')">کپی</button>
+            <span class="code-lang">bash</span>
+          </div>
+          <pre><code id="cli-code"># نصب فقط HAProxy
+sudo ./install.sh --haproxy
+
+# نصب فقط Warp
+sudo ./install.sh --warp
+
+# نصب هر دو
+sudo ./install.sh --both
+
+# اجرای عیب‌یابی
+sudo ./install.sh --diagnostics
+
+# بازگردانی به آخرین نسخه پشتیبان
+sudo ./install.sh --rollback
+
+# حذف کامل
+sudo ./install.sh --uninstall</code></pre>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h3>عیب‌یابی و رفع مشکل</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <button class="copy-btn" onclick="copyCode(this, 'diag-code')">کپی</button>
+            <span class="code-lang">bash</span>
+          </div>
+          <pre><code id="diag-code"># بررسی وضعیت سیستم
+sudo ./install.sh --diagnostics
+
+# لیست نسخه‌های پشتیبان موجود
+sudo ./install.sh --list-backups
+
+# بازگردانی نسخه پشتیبان خاص
+sudo ./install.sh --rollback 20250106_120000</code></pre>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <div class="footer footer-pro">
-      © 2025 haprox-marz · مجوز MIT · توسعه‌یافته با ❤️ توسط توانا
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="../index.html">English</a>
+        <a href="https://github.com/tawanamohammadi/haprox-marz/blob/main/LICENSE">مجوز</a>
+        <a href="https://github.com/tawanamohammadi/haprox-marz/issues">مشکلات</a>
+        <a href="https://github.com/tawanamohammadi/haprox-marz">GitHub</a>
+      </div>
+      <p style="color: var(--text-muted);">
+        ساخته شده با ❤️ توسط <a href="https://github.com/tawanamohammadi">توانا محمدی</a>
+      </p>
+      <p style="color: var(--text-muted); font-size: 0.875rem;">
+        منتشر شده تحت مجوز MIT
+      </p>
     </div>
-  </div>
+  </footer>
 
-  <script src="../assets/script.js"></script>
+  <!-- JavaScript -->
+  <script src="../assets/js/main.js"></script>
 </body>
+
 </html>
